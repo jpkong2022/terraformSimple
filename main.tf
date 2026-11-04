@@ -49,19 +49,4 @@ resource "aws_security_group" "mysg" {
   }
 }
 
-# Provision the Linux EC2 Instance
-resource "aws_instance" "linux_server" {
-  ami                    = "ami-041607313c6a2a618" # Amazon Linux 2023 AMI (Verify for your selected region)
-  instance_type          = var.instance_type
-  vpc_security_group_ids = [aws_security_group.linux_sg.id]
 
-  tags = {
-    Name = "TerraformLinuxServer"
-  }
-}
-
-# Output the Public IP address of the server
-output "instance_public_ip" {
-  description = "Public IP address of the deployed Linux server"
-  value       = aws_instance.linux_server.public_ip
-}
