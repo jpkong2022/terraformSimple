@@ -23,11 +23,10 @@ data "aws_vpc" "default" {
 }
 
 
-# Create a Security Group allowing SSH (Port 22) and all outbound traffic
-resource "aws_security_group" "linux_sg" {
-  name        = "linux-server-sg"
-  description = "Allow inbound SSH and full outbound traffic"
-  vpc_id      = data.aws_vpc.default.id
+resource "aws_security_group" "mysg" {
+  
+  description = "security group for private network access"
+  vpc_id      = "${data.aws_vpc.default.id}"
 
   ingress {
     description = "Allow SSH"
