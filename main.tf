@@ -9,26 +9,22 @@ terraform {
 }
 
 provider "aws" {
-  region = var.aws_region
+	region = var.region
+	access_key = var.access_key
+	secret_key = var.secret_key
 }
 
-# Input variables for flexibility
-variable "aws_region" {
-  type        = string
-  description = "AWS region for deployment"
-  default     = "us-east-1"
+resource "aws_instance" "default" {
+  ami = var.ami
+  instance_type = var.instance_type
+ 
+  
 }
 
-variable "instance_type" {
-  type        = string
-  description = "EC2 instance type"
-  default     = "t3.micro"
-}
-
-# Fetch the default VPC to deploy resources into
 data "aws_vpc" "default" {
   default = true
 }
+
 
 # Create a Security Group allowing SSH (Port 22) and all outbound traffic
 resource "aws_security_group" "linux_sg" {
